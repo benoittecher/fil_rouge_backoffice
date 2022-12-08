@@ -12,11 +12,11 @@ import java.util.List;
 @WebServlet(urlPatterns = "/utilisateurs")
 public class ListeUtilisateursServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UtilisateurJPADAO utilisateurDAO = new UtilisateurJPADAO();
-        List<Utilisateur> listeUtilisateur = utilisateurDAO.findAll();
+        List<Utilisateur> listeUtilisateurs = utilisateurDAO.findAll();
 
-        request.setAttribute("utilisateurs", listeUtilisateur);
-        request.getRequestDispatcher("/WEB-INF/liste-utilisateurs.jsp").forward(request, response);
+        req.setAttribute("utilisateurs", listeUtilisateurs);
+        req.getRequestDispatcher("/WEB-INF/liste-utilisateurs.jsp").forward(req, resp);
     }
 }

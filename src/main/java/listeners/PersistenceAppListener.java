@@ -18,6 +18,6 @@ public class PersistenceAppListener implements ServletContextListener {
          }
         // Call on application destruction
         public void contextDestroyed(ServletContextEvent evt) {
-        ConnectionManager.closeEntityManagerFactory();
+        ConnectionManager.closeConnection();
         }
 }

@@ -32,8 +32,4 @@ public final class ConnectionManager {
             System.err.println("Fermeture de la connexion impossible");
         }
     }
-
-    public static void closeEntityManagerFactory(){
-        CONNECTION_INSTANCE.close();
-    }
 }
