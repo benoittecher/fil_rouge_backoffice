@@ -1,4 +1,4 @@
-package com.example.planningmeteobackoffice.model;
+package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
