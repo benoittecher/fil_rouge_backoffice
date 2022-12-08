@@ -78,4 +78,14 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
             create(superAdmin);
         }
     }
+
+    public Optional<Utilisateur> getByMailAndPwd(String mail, String pwd){
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u where u.mail = :mail and u.motDePasse = :pwd ", Utilisateur.class);
+        query.setParameter("mail", mail);
+        query.setParameter("pwd", pwd);
+        List<Utilisateur> utilisateur = query.setMaxResults(1).getResultList();
+        em.close();
+        return Optional.of( utilisateur != null && utilisateur.size() > 0 ? utilisateur.get(0) : null);
+    }
 }
