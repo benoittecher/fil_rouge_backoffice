@@ -13,11 +13,19 @@ public class Role {
     @Column(name = "id_role", nullable = false)
     private Long idRole;
 
-    @Column(name = "intitule", nullable = false, length = 20)
+    @Column(name = "intitule", unique = true, nullable = false, length = 20)
     private String intitule;
 
     @OneToMany (targetEntity = Utilisateur.class, mappedBy = "role")
     private List<Utilisateur> utilisateurs = new ArrayList<>();
+
+    public Role() {
+    }
+
+    public Role(String intitule) {
+        this.intitule = intitule;
+        this.utilisateurs = new ArrayList<>();
+    }
 
     public Long getIdRole() {
         return idRole;

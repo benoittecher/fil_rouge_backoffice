@@ -3,6 +3,7 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import model.Role;
 import model.StatutCompte;
 
 import java.util.List;
@@ -22,6 +23,19 @@ public class StatutCompteJPADAO implements CrudDAO<StatutCompte>{
     public Optional<StatutCompte> findById(Long id) {
         EntityManager em = ConnectionManager.getEntityManager();
         return Optional.of(em.find(StatutCompte.class, id));
+    }
+
+    public StatutCompte findByIntitule(String intitule){
+        StatutCompte result = null;
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<StatutCompte> query = em.createQuery("select sc from StatutCompte sc where sc.intitule = :intitule", StatutCompte.class);
+        query.setParameter("intitule", intitule);
+        List<StatutCompte> scs = query.getResultList();
+        if(scs.size() > 0){
+            result = scs.get(0);
+        }
+        em.close();
+        return result;
     }
 
     @Override
@@ -55,5 +69,25 @@ public class StatutCompteJPADAO implements CrudDAO<StatutCompte>{
         }
         em.close();
         return false;
+    }
+
+    public void initialize(){
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<StatutCompte> query = em.createQuery("select sc from StatutCompte sc", StatutCompte.class);
+        List<StatutCompte> resultList = query.setMaxResults(1).getResultList();
+
+        if(resultList.size() == 0){
+            StatutCompte statutActif = new StatutCompte("actif");
+            StatutCompte statutDesactive = new StatutCompte("désactivé");
+            create(statutActif);
+            create(statutDesactive);
+        }
+    }
+    public boolean dbEmpty(){
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<StatutCompte> query = em.createQuery("select sc from StatutCompte sc", StatutCompte.class);
+        List<StatutCompte> resultList = query.setMaxResults(1).getResultList();
+        em.close();
+        return resultList.size() == 0;
     }
 }
