@@ -1,3 +1,4 @@
+<%@ page import="model.Utilisateur" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -15,8 +16,20 @@
 <ul>
     <li>${utilisateur.mail}</li>
     <li>${utilisateur.prenom} ${utilisateur.nom}</li>
-    <li>${utilisateur.statutCompte}</li>
+    <li>${utilisateur.statutCompte.intitule}</li>
 </ul>
+
+    <form method="post" action="${pageContext.request.contextPath}/utilisateurs/supprimer">
+        <input type="hidden" value="${utilisateur.idUtilisateur}" name="idUtilisateur">
+
+        <c:choose>
+            <c:when test="${utilisateur.role.intitule == 'superAdmin'}"></c:when>
+            <c:otherwise>
+                <button class="btn btn-danger">Delete</button>
+            </c:otherwise>
+        </c:choose>
+
+    </form>
 
 </c:forEach>
 
