@@ -45,6 +45,17 @@ public class Utilisateur {
     @OneToMany (targetEntity = Evenement.class, mappedBy = "utilisateur", cascade = CascadeType.REMOVE)
     private List<Evenement> planning = new ArrayList<>();
 
+    public Utilisateur(String nom, String prenom, String mail, String motDePasse,String ville, String pays, Role role, StatutCompte statutCompte) {
+        this.prenom = prenom;
+        this.mail = mail;
+        this.ville = ville;
+        this.pays = pays;
+        this.nom = nom;
+        this.motDePasse = motDePasse;
+        this.statutCompte = statutCompte;
+        this.role = role;
+    }
+
     public List<Evenement> getPlanning() {
         return planning;
     }
