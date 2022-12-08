@@ -13,26 +13,44 @@
 
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/utilisateurs/ajouter">Ajouter un utilisateur</a>
 
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Adresse email</th>
+        <th scope="col">Prénom Nom</th>
+        <th scope="col">Statut du compte</th>
+        <th scope="col" colspan="2">Actions Administrateur</th>
+    </tr>
+    </thead>
+    <tbody>
 <c:forEach items="${utilisateurs}" var="utilisateur">
-<ul>
-    <li>${utilisateur.mail}</li>
-    <li>${utilisateur.prenom} ${utilisateur.nom}</li>
-    <li>${utilisateur.statutCompte.intitule}</li>
-</ul>
+    <tr>
+        <td>${utilisateur.mail}</td>
+        <td>${utilisateur.prenom} ${utilisateur.nom}</td>
+        <td>${utilisateur.statutCompte.intitule}</td>
+        <td>
+            <form method="get" action="${pageContext.request.contextPath}/utilisateurs/modifier">
+                <input type="hidden" value="${utilisateur.idUtilisateur}" name="id">
+                <button class="btn btn-primary">Modifier</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="${pageContext.request.contextPath}/utilisateurs/supprimer">
+                <input type="hidden" value="${utilisateur.idUtilisateur}" name="idUtilisateur">
 
-    <form method="post" action="${pageContext.request.contextPath}/utilisateurs/supprimer">
-        <input type="hidden" value="${utilisateur.idUtilisateur}" name="idUtilisateur">
+                <c:choose>
+                    <c:when test="${utilisateur.role.intitule == 'superAdmin'}"></c:when>
+                    <c:otherwise>
+                        <button class="btn btn-danger">Supprimer</button>
+                    </c:otherwise>
+                </c:choose>
 
-        <c:choose>
-            <c:when test="${utilisateur.role.intitule == 'superAdmin'}"></c:when>
-            <c:otherwise>
-                <button class="btn btn-danger">Delete</button>
-            </c:otherwise>
-        </c:choose>
+            </form>
+        </td>
 
-    </form>
-
+    </tr>
 </c:forEach>
-
+    </tbody>
+</table>
 </body>
 </html>

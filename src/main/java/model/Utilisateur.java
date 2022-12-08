@@ -60,6 +60,18 @@ public class Utilisateur {
         this.photo = "";
     }
 
+    public Utilisateur(Long id, String nom, String prenom, String mail, String motDePasse,String ville, String pays, Role role, StatutCompte statutCompte) {
+        this.idUtilisateur = id;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.ville = ville;
+        this.pays = pays;
+        this.nom = nom;
+        this.motDePasse = motDePasse;
+        this.statutCompte = statutCompte;
+        this.role = role;
+    }
+
     public Utilisateur(String nom, String prenom, String mail, String motDePasse,String ville, String pays, Role role, StatutCompte statutCompte) {
         this.prenom = prenom;
         this.mail = mail;

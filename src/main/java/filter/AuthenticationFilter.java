@@ -9,7 +9,7 @@ import servlet.LoginServlet;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/utilisateurs/*")
+@WebFilter(urlPatterns ="")
 public class AuthenticationFilter implements Filter {
 
 
