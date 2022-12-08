@@ -26,7 +26,7 @@ public class AjouterUtilisateurServlet extends HttpServlet {
         List<StatutCompte> listeStatuts = statutDAO.findAll();
 
         req.setAttribute("roles", listeRoles);
-        req.setAttribute("status", listeStatuts);
+        req.setAttribute("statuts", listeStatuts);
         req.getRequestDispatcher("/WEB-INF/ajouter-utilisateur.jsp").forward(req,resp);
     }
 
