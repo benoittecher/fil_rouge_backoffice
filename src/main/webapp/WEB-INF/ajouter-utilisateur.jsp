@@ -10,39 +10,48 @@
 <h1>Ajout d'un nouvel utilisateur :</h1>
 
 <form method="post" action="/utilisateurs/ajouter">
-    <label for="nomUtilisateur">Nom :</label>
-    <input id="nomUtilisateur" type="text" name="nomUtilisateur">
-
-    <label for="prenomUtilisateur">Prénom :</label>
-    <input id="prenomUtilisateur" type="text" name="prenomUtilisateur">
-
-    <label for="mailUtilisateur">Adresse email :</label>
-    <input id="mailUtilisateur" type="text" name="mailUtilisateur">
-
-    <label for="mdpUtilisateur">Mot de passe :</label>
-    <input id="mdpUtilisateur" type="text" name="mdpUtilisateur">
-
-    <label for="villeUtilisateur">Ville :</label>
-    <input id="villeUtilisateur" type="text" name="villeUtilisateur">
-
-    <label for="paysUtilisateur">Pays :</label>
-    <input id="paysUtilisateur" type="text" name="paysUtilisateur">
-
-    <label for="roleUtilisateur">Rôle :</label>
-    <select id="roleUtilisateur" name="roleUtilisateur">
-        <option value="" selected disabled hidden>--choisir le rôle--</option>
-        <c:forEach items="${roles}" var="role">
-            <option value="${role.idRole}">${role.intitule}</option>
-        </c:forEach>
-    </select>
-
-    <label for="statutCompteUtilisateur">Statut du compte :</label>
-    <select id="statutCompteUtilisateur" name="statutCompteUtilisateur">
-        <option value="" selected disabled hidden>--choisir le statut--</option>
-        <c:forEach items="${statuts}" var="statut">
-            <option value="${statut.idStatutCompte}">${statut.intitule}</option>
-        </c:forEach>
-    </select>
+    <div>
+        <label for="nomUtilisateur">Nom :</label>
+        <input id="nomUtilisateur" type="text" name="nomUtilisateur">
+    </div>
+    <div>
+        <label for="prenomUtilisateur">Prénom :</label>
+        <input id="prenomUtilisateur" type="text" name="prenomUtilisateur">
+    </div>
+    <div>
+        <label for="mailUtilisateur">Adresse email :</label>
+        <input id="mailUtilisateur" type="text" name="mailUtilisateur">
+    </div>
+    <div>
+        <label for="mdpUtilisateur">Mot de passe :</label>
+        <input id="mdpUtilisateur" type="text" name="mdpUtilisateur">
+    </div>
+    <div>
+        <label for="villeUtilisateur">Ville :</label>
+        <input id="villeUtilisateur" type="text" name="villeUtilisateur">
+    </div>
+    <div>
+        <label for="paysUtilisateur">Pays :</label>
+        <input id="paysUtilisateur" type="text" name="paysUtilisateur">
+    </div>
+    <div>
+        <label for="roleUtilisateur">Rôle :</label>
+        <select id="roleUtilisateur" name="roleUtilisateur">
+            <option value="" selected disabled hidden>--choisir le rôle--</option>
+            <c:forEach items="${roles}" var="role">
+                <option value="${role.idRole}">${role.intitule}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div>
+        <label for="statutCompteUtilisateur">Statut du compte :</label>
+        <select id="statutCompteUtilisateur" name="statutCompteUtilisateur">
+            <option value="" selected disabled hidden>--choisir le statut--</option>
+            <c:forEach items="${statuts}" var="statut">
+                <option value="${statut.idStatutCompte}">${statut.intitule}</option>
+            </c:forEach>
+        </select>
+    </div>
 
     <button>Créer l'utilisateur</button>
 </form>
