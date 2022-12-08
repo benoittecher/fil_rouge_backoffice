@@ -3,6 +3,8 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import model.Role;
+import model.StatutCompte;
 import model.Utilisateur;
 
 import java.util.List;
@@ -64,5 +66,16 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
         }
         em.close();
         return false;
+    }
+    public void initialize(){
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<Utilisateur> query = em.createQuery("select sc from Utilisateur sc", Utilisateur.class);
+        List<Utilisateur> resultList = query.setMaxResults(1).getResultList();
+        Role superAdminRole = new RoleJPADAO().findByIntitule("superAdmin");
+        StatutCompte statutActif = new StatutCompteJPADAO().findByIntitule("actif");
+        if(resultList.size() == 0){
+            Utilisateur superAdmin = new Utilisateur("superAdmin", "superAdmin", "azerty", statutActif, superAdminRole);
+            create(superAdmin);
+        }
     }
 }

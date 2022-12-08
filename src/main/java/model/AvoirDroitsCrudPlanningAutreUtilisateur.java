@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "avoir_droits_crud_planning_autre_utilisateur", schema = "plannings_meteo")
-@IdClass(AvoirDroitsCrudPlanningAutreUtilisateurPK.class)
 public class AvoirDroitsCrudPlanningAutreUtilisateur {
 
     @ManyToOne
