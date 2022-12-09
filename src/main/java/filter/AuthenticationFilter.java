@@ -5,11 +5,12 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Utilisateur;
 import servlet.LoginServlet;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns ="")
+@WebFilter(urlPatterns ="/utilisateurs/*")
 public class AuthenticationFilter implements Filter {
 
 
@@ -20,7 +21,7 @@ public class AuthenticationFilter implements Filter {
 
         HttpSession session = req.getSession(false);
 
-        if(session != null && session.getAttribute("utilisateur") != null){
+        if(session != null && session.getAttribute("utilisateur") != null && !((Utilisateur)session.getAttribute("utilisateur")).getRole().getIntitule().equals("utilisateur")){
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
             resp.sendRedirect(LoginServlet.URL);
