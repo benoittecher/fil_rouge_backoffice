@@ -13,12 +13,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The weather calendar</title>
-  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="stylesheet" href="/assets/style.css" type="text/css">
 </head>
 <body>
 <aside>
   <a href="#">
-    <img id="logo" src="ressources/images/logo.jpg">
+    <img id="logo" src="/ressources/images/logo.jpg">
     <div>THE WEATHER CALENDAR</div>
   </a>
 </aside>
