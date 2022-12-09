@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         if(session != null && session.getAttribute("utilisateur") != null && !((Utilisateur)session.getAttribute("utilisateur")).getRole().getIntitule().equals("utilisateur")){
             resp.sendRedirect("/utilisateurs");
-        }else {
+        } else {
             req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req,resp);
         }
     }
