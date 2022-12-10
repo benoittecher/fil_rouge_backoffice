@@ -18,6 +18,7 @@
     <tr>
         <th scope="col">Adresse email</th>
         <th scope="col">Prénom Nom</th>
+        <th scope="col">Rôle</th>
         <th scope="col">Statut du compte</th>
         <th scope="col" colspan="2">Actions Administrateur</th>
     </tr>
@@ -27,6 +28,7 @@
     <tr>
         <td>${utilisateur.mail}</td>
         <td>${utilisateur.prenom} ${utilisateur.nom}</td>
+        <td>${utilisateur.role.intitule}</td>
         <td>${utilisateur.statutCompte.intitule}</td>
         <td>
             <form method="get" action="${pageContext.request.contextPath}/utilisateurs/modifier">

@@ -8,11 +8,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Role;
 import model.StatutCompte;
 import model.Utilisateur;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/utilisateurs/ajouter")
@@ -20,12 +22,20 @@ public class AjouterUtilisateurServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RoleJPADAO roleDAO = new RoleJPADAO();
-        List<Role> listeRoles = roleDAO.findAll();
         StatutCompteJPADAO statutDAO = new StatutCompteJPADAO();
         List<StatutCompte> listeStatuts = statutDAO.findAll();
+        RoleJPADAO roleDAO = new RoleJPADAO();
+        List<Role> listeRoles = new ArrayList<>();
+
+        HttpSession session = req.getSession();
+        if(((Utilisateur)session.getAttribute("utilisateur")).getRole().getIntitule().equals("superAdmin")) {
+            listeRoles = roleDAO.findAll();
+        } else {
+            listeRoles.add(roleDAO.findByIntitule("utilisateur"));
+        }
 
         req.setAttribute("roles", listeRoles);
+
         req.setAttribute("statuts", listeStatuts);
         req.getRequestDispatcher("/WEB-INF/ajouter-utilisateur.jsp").forward(req,resp);
     }
