@@ -7,7 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="header.jsp"><jsp:param name="errorMsg" value="${error}"/></jsp:include>
+<jsp:include page="header.jsp">
+    <jsp:param name="errorMsg" value="${error}"/>
+    <jsp:param name="title" value="Liste des utilisateurs"/>
+</jsp:include>
 
 <h1>Liste des utilisateurs</h1>
 
@@ -54,5 +57,5 @@
 </c:forEach>
     </tbody>
 </table>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>
+

@@ -1,27 +1,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--Created by : User: maud_  --  Date: 07/12/2022  --  Time: 10:20--%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <%@ page contentType="text/html;charset=UTF-8"%>
-    <link href="../style/main.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><c:out value="${param.title}"/></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/style.css" type="text/css">
+
 </head>
+<body>
+<div id="main-container">
+<header class="margin-centered">
+    <nav>
+        <div id="menu">
+            <c:choose>
+                <c:when test="${not empty sessionScope.utilisateur}">
+                    <form method="post" action="${pageContext.request.contextPath}/logout">
+                        <input type="submit" class="btn btn-primary" value="Déconnexion">
+                    </form>
+                </c:when>
+
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Connexion</a>
+                </c:otherwise>
+
+            </c:choose>
+        </div>
+    </nav>
+
+</header>
 <header>
-    <h1>Gestion des utilisateurs</h1>
     <div class="log">
-    <a href="${pageContext.request.contextPath}/login"></a>
-    <a href="${pageContext.request.contextPath}/logout"></a>
-        <c:choose>
-            <c:when test="${not empty sessionScope.utilisateur}">
-                <form method="post" action="${pageContext.request.contextPath}/logout">
-                    <input type="submit" value="Déconnexion">
-                </form>
-            </c:when>
 
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/login">Sign In</a>
-            </c:otherwise>
-
-        </c:choose>
     </div>
     <div class="menu">
 
@@ -35,3 +48,4 @@
         </div>
     </c:when>
 </c:choose>
+    <main class="margin-centered">
