@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if(session != null && session.getAttribute("utilisateur") != null && !((Utilisateur)session.getAttribute("utilisateur")).getRole().getIntitule().equals("utilisateur")){
+        if(session != null && session.getAttribute("utilisateur") != null && !((Utilisateur)session.getAttribute("utilisateur")).getRole().getIntitule().equals("utilisateur") && ((Utilisateur)session.getAttribute("utilisateur")).getStatutCompte().getIntitule().equals("actif")){
             resp.sendRedirect("/utilisateurs");
         } else {
             req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req,resp);

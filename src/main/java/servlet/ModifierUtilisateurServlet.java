@@ -25,6 +25,9 @@ public class ModifierUtilisateurServlet extends HttpServlet {
         StatutCompteJPADAO statutDAO = new StatutCompteJPADAO();
         List<StatutCompte> listeStatuts = statutDAO.findAll();
 
+        Utilisateur admin = (Utilisateur) req.getSession().getAttribute("utilisateur");
+        boolean isSuperAdmin = admin.getRole().getIntitule().equals("superAdmin");
+        req.setAttribute("isSuperAdmin", isSuperAdmin);
         req.setAttribute("roles", listeRoles);
         req.setAttribute("statuts", listeStatuts);
 
@@ -33,6 +36,9 @@ public class ModifierUtilisateurServlet extends HttpServlet {
         Optional<Utilisateur> utilisateurOptional = utilisateurDAO.findById(id);
 
         if(utilisateurOptional.isPresent()) {
+            if(!isSuperAdmin && utilisateurOptional.get().getRole().getIntitule().equals("superAdmin")){
+                resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+            }
             Utilisateur utilisateur = utilisateurOptional.get();
             req.setAttribute("utilisateur", utilisateur);
             req.getRequestDispatcher("/WEB-INF/modifier-utilisateur.jsp").forward(req, resp);
@@ -43,28 +49,36 @@ public class ModifierUtilisateurServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long idUtilisateur = Long.parseLong(req.getParameter("id"));
-        String nom = req.getParameter("nomUtilisateur");
-        String prenom = req.getParameter("prenomUtilisateur");
-        String mail = req.getParameter("mailUtilisateur");
-        String mdp = req.getParameter("mdpUtilisateur");
-        String ville = req.getParameter("villeUtilisateur");
-        String pays = req.getParameter("paysUtilisateur");
-        Long idRole = Long.parseLong(req.getParameter("roleUtilisateur"));
-        Long idStatut = Long.parseLong(req.getParameter("statutCompteUtilisateur"));
 
-        RoleJPADAO roleDAO = new RoleJPADAO();
-        StatutCompteJPADAO statutDAO = new StatutCompteJPADAO();
+
         UtilisateurJPADAO utilisateurDAO = new UtilisateurJPADAO();
-
+        Long idUtilisateur = Long.parseLong(req.getParameter("id"));
         Optional<Utilisateur> utilisateurOptional = utilisateurDAO.findById(idUtilisateur);
 
-        Role role = roleDAO.findById(idRole).get();
-        StatutCompte statut = statutDAO.findById(idStatut).get();
+
 
         if(utilisateurOptional.isPresent()) {
-            Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, mail, mdp, ville, pays, role, statut);
-            utilisateurDAO.update(utilisateur);
+            String nom = req.getParameter("nomUtilisateur");
+            String prenom = req.getParameter("prenomUtilisateur");
+            String mail = req.getParameter("mailUtilisateur");
+            String mdp = req.getParameter("mdpUtilisateur");
+            String ville = req.getParameter("villeUtilisateur");
+            String pays = req.getParameter("paysUtilisateur");
+            Long idRole = Long.parseLong(req.getParameter("roleUtilisateur"));
+            Long idStatut = Long.parseLong(req.getParameter("statutCompteUtilisateur"));
+            Utilisateur admin = (Utilisateur) req.getSession().getAttribute("utilisateur");
+            boolean isSuperAdmin = admin.getRole().getIntitule().equals("superAdmin");
+
+
+            RoleJPADAO roleDAO = new RoleJPADAO();
+            Optional<Role> role = isSuperAdmin ? roleDAO.findById(idRole) : Optional.of(utilisateurOptional.get().getRole());
+            StatutCompteJPADAO statutDAO = new StatutCompteJPADAO();
+            Optional<StatutCompte> statut = statutDAO.findById(idStatut);
+            if(role.isPresent() && statut.isPresent()){
+                Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, mail, mdp, ville, pays, role.get(), statut.get());
+                utilisateurDAO.update(utilisateur);
+            }
+
             resp.sendRedirect(req.getContextPath() + "/utilisateurs");
         } else {
             //todo : utilisateur non trouvé

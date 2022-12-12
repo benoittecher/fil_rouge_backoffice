@@ -34,23 +34,24 @@
         <td>${utilisateur.role.intitule}</td>
         <td>${utilisateur.statutCompte.intitule}</td>
         <td>
-            <form method="get" action="${pageContext.request.contextPath}/utilisateurs/modifier">
-                <input type="hidden" value="${utilisateur.idUtilisateur}" name="id">
-                <button class="btn btn-primary">Modifier</button>
-            </form>
+            <c:choose>
+                <c:when test="${canUpdate.get(utilisateur)}">
+                    <form method="get" action="${pageContext.request.contextPath}/utilisateurs/modifier">
+                        <input type="hidden" value="${utilisateur.idUtilisateur}" name="id">
+                        <button class="btn btn-primary">Modifier</button>
+                    </form>
+                </c:when>
+            </c:choose>
         </td>
         <td>
-            <form method="post" action="${pageContext.request.contextPath}/utilisateurs/supprimer">
-                <input type="hidden" value="${utilisateur.idUtilisateur}" name="idUtilisateur">
-
-                <c:choose>
-                    <c:when test="${utilisateur.role.intitule == 'superAdmin'}"></c:when>
-                    <c:otherwise>
+            <c:choose>
+                <c:when test="${canUpdate.get(utilisateur)}">
+                    <form method="post" action="${pageContext.request.contextPath}/utilisateurs/supprimer">
+                        <input type="hidden" value="${utilisateur.idUtilisateur}" name="idUtilisateur">
                         <button class="btn btn-danger">Supprimer</button>
-                    </c:otherwise>
-                </c:choose>
-
-            </form>
+                    </form>
+                </c:when>
+            </c:choose>
         </td>
 
     </tr>

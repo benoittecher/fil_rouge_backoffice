@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Modifier les information de l'utilisateur :</h1>
+<h1>Modifier les informations de l'utilisateur :</h1>
 
 <form method="post" action="/utilisateurs/modifier">
     <input type="hidden" value="${utilisateur.idUtilisateur}" name="id">
@@ -37,6 +37,8 @@
     </div>
     <div>
         <label for="roleUtilisateur">Rôle :</label>
+    <c:choose>
+        <c:when test="${isSuperAdmin}">
         <select id="roleUtilisateur" name="roleUtilisateur">
             <c:forEach items="${roles}" var="role">
                 <c:choose>
@@ -49,6 +51,12 @@
                 </c:choose>
             </c:forEach>
         </select>
+        </c:when>
+        <c:otherwise>
+            <input type="text" value="${utilisateur.role.intitule}" id="roleUtilisateur" readonly>
+            <input type="hidden" name="roleUtilisateur" value="${utilisateur.role.id}">
+        </c:otherwise>
+    </c:choose>
     </div>
     <div>
         <label for="statutCompteUtilisateur">Statut du compte :</label>
