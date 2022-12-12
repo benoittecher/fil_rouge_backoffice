@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             resp.addCookie(cookieUser);*/
 
 
-        }else {
+        } else {
             req.setAttribute("loginFail", true);
             doGet(req, resp);
         }

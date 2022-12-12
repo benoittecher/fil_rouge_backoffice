@@ -36,25 +36,27 @@
         <input id="paysUtilisateur" type="text" name="paysUtilisateur" value="${utilisateur.pays}">
     </div>
     <div>
-        <label for="roleUtilisateur">Rôle :</label>
     <c:choose>
         <c:when test="${isSuperAdmin}">
-        <select id="roleUtilisateur" name="roleUtilisateur">
-            <c:forEach items="${roles}" var="role">
-                <c:choose>
-                <c:when test="${utilisateur.role.idRole == role.idRole}">
-                    <option selected value="${role.idRole}">${role.intitule}</option>
-                </c:when>
-                <c:otherwise>
-                    <option value="${role.idRole}">${role.intitule}</option>
-                </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </select>
+            <label for="roleUtilisateur">Rôle :</label>
+            <select id="roleUtilisateur" name="roleUtilisateur">
+                <c:forEach items="${roles}" var="role">
+                    <c:choose>
+                    <c:when test="${utilisateur.role.idRole == role.idRole}">
+                        <option selected value="${role.idRole}">${role.intitule}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${role.idRole}">${role.intitule}</option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
         </c:when>
         <c:otherwise>
-            <input type="text" value="${utilisateur.role.intitule}" id="roleUtilisateur" readonly>
-            <input type="hidden" name="roleUtilisateur" value="${utilisateur.role.id}">
+            <label for="roleUtilisateurAffiche">Rôle :</label>
+            <input type="text" value="${roleUtilisateur.intitule}" id="roleUtilisateurAffiche" readonly>
+            <!-- test -->
+            <input type="hidden" name="roleUtilisateur" value="${roleUtilisateur.idRole}">
         </c:otherwise>
     </c:choose>
     </div>

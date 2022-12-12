@@ -26,7 +26,7 @@ public class ListeUtilisateursServlet extends HttpServlet {
             }
         } else{
             for(Utilisateur utilisateur : listeUtilisateurs) {
-                canUpdate.put(utilisateur, !utilisateur.getRole().getIntitule().equals("superAdmin"));
+                canUpdate.put(utilisateur, utilisateur.getRole().getIntitule().equals("utilisateur"));
             }
         }
         req.setAttribute("canUpdate", canUpdate);

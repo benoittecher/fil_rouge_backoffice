@@ -41,6 +41,7 @@ public class ModifierUtilisateurServlet extends HttpServlet {
             }
             Utilisateur utilisateur = utilisateurOptional.get();
             req.setAttribute("utilisateur", utilisateur);
+            req.setAttribute("idRoleUtilisateur", utilisateur.getRole());
             req.getRequestDispatcher("/WEB-INF/modifier-utilisateur.jsp").forward(req, resp);
         } else {
             //todo : utilisateur non trouvé
