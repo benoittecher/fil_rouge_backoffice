@@ -77,11 +77,16 @@ public class ModifierUtilisateurServlet extends HttpServlet {
             if(role.isPresent() && statut.isPresent()){
                 Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, mail, mdp, ville, pays, role.get(), statut.get());
                 utilisateurDAO.update(utilisateur);
+                resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+            } else{
+                req.setAttribute("error", "Le rôle ou le statut attribué ne conviennent pas");
+                resp.sendRedirect(req.getContextPath() + "/utilisateurs");
             }
 
-            resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+
         } else {
-            //todo : utilisateur non trouvé
+            req.setAttribute("error", "L'utilisateur à modifier ne figure pas en base de données");
+            resp.sendRedirect(req.getContextPath() + "/utilisateurs");
         }
     }
 }

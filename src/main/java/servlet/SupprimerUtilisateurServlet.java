@@ -22,10 +22,19 @@ public class SupprimerUtilisateurServlet extends HttpServlet {
         Optional<Utilisateur> utilisateurOptional = utilisateurDAO.findById(id);
 
         if(utilisateurOptional.isPresent()) {
-            utilisateurDAO.delete(id);
-            resp.sendRedirect(req.getContextPath()+ "/utilisateurs");
+            Utilisateur admin = (Utilisateur) req.getSession().getAttribute("utilisateur");
+            boolean isSuperAdmin = admin.getRole().getIntitule().equals("superAdmin");
+            if(!isSuperAdmin && !utilisateurOptional.get().getRole().getIntitule().equals("utilisateur")){
+                req.setAttribute("error", "Vous n'êtes pas autorisé à supprimer un membre de statut administrateur ou supérieur");
+                resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+            } else{
+                utilisateurDAO.delete(id);
+                resp.sendRedirect(req.getContextPath()+ "/utilisateurs");
+            }
+
         } else {
-            //TODO gérer utilisateur non trouvé
+            req.setAttribute("error", "L'utilisateur à supprimer ne figure pas en base de données");
+            resp.sendRedirect(req.getContextPath() + "/utilisateurs");
         }
     }
 }
