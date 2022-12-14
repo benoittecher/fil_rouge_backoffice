@@ -24,7 +24,7 @@
     </div>
     <div>
         <label for="mdpUtilisateur">Mot de passe :</label>
-        <input id="mdpUtilisateur" type="text" name="mdpUtilisateur">
+        <input id="mdpUtilisateur" type="password" name="mdpUtilisateur">
     </div>
     <div>
         <label for="villeUtilisateur">Ville :</label>

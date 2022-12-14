@@ -24,10 +24,6 @@
         <input id="mailUtilisateur" type="text" name="mailUtilisateur" value="${utilisateur.mail}">
     </div>
     <div>
-        <label for="mdpUtilisateur">Mot de passe :</label>
-        <input id="mdpUtilisateur" type="text" name="mdpUtilisateur" value="${utilisateur.motDePasse}">
-    </div>
-    <div>
         <label for="villeUtilisateur">Ville :</label>
         <input id="villeUtilisateur" type="text" name="villeUtilisateur" value="${utilisateur.ville}">
     </div>

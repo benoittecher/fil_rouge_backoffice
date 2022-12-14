@@ -62,7 +62,7 @@ public class ModifierUtilisateurServlet extends HttpServlet {
             String nom = req.getParameter("nomUtilisateur");
             String prenom = req.getParameter("prenomUtilisateur");
             String mail = req.getParameter("mailUtilisateur");
-            String mdp = req.getParameter("mdpUtilisateur");
+            String mdp = utilisateurOptional.get().getMotDePasse();
             String ville = req.getParameter("villeUtilisateur");
             String pays = req.getParameter("paysUtilisateur");
             Long idRole = Long.parseLong(req.getParameter("roleUtilisateur"));
