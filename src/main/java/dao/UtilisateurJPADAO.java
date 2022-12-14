@@ -86,6 +86,6 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
         query.setParameter("pwd", pwd);
         List<Utilisateur> utilisateur = query.setMaxResults(1).getResultList();
         em.close();
-        return Optional.of( utilisateur != null && utilisateur.size() > 0 ? utilisateur.get(0) : null);
+        return utilisateur != null && utilisateur.size() > 0 ? Optional.of(utilisateur.get(0)) : Optional.empty();
     }
 }

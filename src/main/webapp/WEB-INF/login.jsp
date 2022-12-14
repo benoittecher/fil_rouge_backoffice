@@ -16,6 +16,9 @@
 <c:if test="${loginFail}">
     <div class="alert alert-danger" role="alert">Mauvais login</div>
 </c:if>
+<c:if test="${basicUser}">
+    <div class="alert alert-danger" role="alert">Votre statut ne vous autorise pas à accéder à ce contenu</div>
+</c:if>
 
 <form method="post" action="${pageContext.request.contextPath}/login">
     <div><input type="text" name="email" placeholder="email"></div>

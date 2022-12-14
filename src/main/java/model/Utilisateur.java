@@ -170,4 +170,16 @@ public class Utilisateur {
     public void setRole(Role role) {
         this.role = role;
     }
+    public boolean isActive(){
+        return this.statutCompte.getIntitule().equals("actif");
+    }
+    public boolean isSuperAdmin(){
+        return this.role.getIntitule().equals("superAdmin");
+    }
+    public boolean isBasicUser(){
+        return this.role.getIntitule().equals("utilisateur");
+    }
+    public boolean isBasicAdmin(){
+        return this.role.getIntitule().equals("admin");
+    }
 }

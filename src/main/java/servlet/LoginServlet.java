@@ -29,17 +29,20 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         Optional<Utilisateur> optUtilisateur = new UtilisateurJPADAO().getByMailAndPwd(email, password);
-        if(optUtilisateur.isPresent()) {
+        if(optUtilisateur.isPresent() && !optUtilisateur.get().isBasicUser()) {
             HttpSession session = req.getSession(true);
             session.setAttribute("utilisateur", optUtilisateur.get());
             session.setMaxInactiveInterval(30 * 60);
-
             /*Cookie cookieUser = new Cookie("username", username);
             resp.addCookie(cookieUser);*/
 
-
         } else {
-            req.setAttribute("loginFail", true);
+            if(!optUtilisateur.isPresent()) {
+                req.setAttribute("loginFail", true);
+            }
+            if(optUtilisateur.isPresent() && optUtilisateur.get().isBasicUser()){
+                req.setAttribute("basicUser", true);
+            }
             doGet(req, resp);
         }
         resp.sendRedirect("/utilisateurs");
