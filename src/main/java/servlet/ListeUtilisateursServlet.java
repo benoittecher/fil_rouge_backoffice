@@ -29,6 +29,11 @@ public class ListeUtilisateursServlet extends HttpServlet {
                 canUpdate.put(utilisateur, utilisateur.getRole().getIntitule().equals("utilisateur"));
             }
         }
+
+        if(req.getParameter("utilisateurabsent") != null) {
+            req.setAttribute("utilisateurAbsent", true);
+        }
+
         req.setAttribute("canUpdate", canUpdate);
         req.setAttribute("utilisateurs", listeUtilisateurs);
         req.getRequestDispatcher("/WEB-INF/liste-utilisateurs.jsp").forward(req, resp);

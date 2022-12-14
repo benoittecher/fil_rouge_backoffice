@@ -23,7 +23,8 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
     @Override
     public Optional<Utilisateur> findById(Long id) {
         EntityManager em = ConnectionManager.getEntityManager();
-        return Optional.of(em.find(Utilisateur.class, id));
+        Utilisateur utilisateur = em.find(Utilisateur.class, id);
+        return utilisateur != null ? Optional.of(utilisateur) : Optional.empty();
     }
 
     @Override

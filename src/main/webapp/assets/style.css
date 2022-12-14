@@ -17,6 +17,11 @@ body{
 aside{
     width:40vw;
 }
+
+.alert {
+    width: 50rem;
+}
+
 #main-container-home{
     width: 100vw;
     flex-direction: column;

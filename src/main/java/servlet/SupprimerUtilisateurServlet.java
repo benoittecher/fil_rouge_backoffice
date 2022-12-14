@@ -33,8 +33,7 @@ public class SupprimerUtilisateurServlet extends HttpServlet {
             }
 
         } else {
-            req.setAttribute("error", "L'utilisateur à supprimer ne figure pas en base de données");
-            resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+            resp.sendRedirect(req.getContextPath() + "/utilisateurs?utilisateurabsent=true");
         }
     }
 }

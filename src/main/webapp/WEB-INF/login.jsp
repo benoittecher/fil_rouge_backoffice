@@ -10,7 +10,7 @@
 
 <jsp:include page="header.jsp">
     <jsp:param name="errorMsg" value="${error}"/>
-    <jsp:param name="title" value="Liste des utilisateurs"/>
+    <jsp:param name="title" value="Login"/>
 </jsp:include>
 <h1 >Login</h1>
 <c:if test="${loginFail}">

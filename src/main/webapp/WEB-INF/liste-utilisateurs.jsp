@@ -2,13 +2,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="header.jsp">
-    <jsp:param name="errorMsg" value="${error}"/>
     <jsp:param name="title" value="Liste des utilisateurs"/>
 </jsp:include>
 
 <h1>Liste des utilisateurs</h1>
 
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/utilisateurs/ajouter">Ajouter un utilisateur</a>
+
+<c:if test="${utilisateurAbsent}">
+    <div class="alert alert-danger" role="alert">L'utilisateur sélectionné ne figure pas en base de données</div>
+</c:if>
 
 <table class="table table-striped">
     <thead>
@@ -52,5 +55,7 @@
 </c:forEach>
     </tbody>
 </table>
+
+
 <jsp:include page="footer.jsp"/>
 
