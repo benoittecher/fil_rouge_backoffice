@@ -17,7 +17,7 @@ body{
 aside{
     width:40vw;
 }
-#main-container{
+#main-container-home{
     width: 100vw;
     flex-direction: column;
     justify-content: space-between;
@@ -26,6 +26,7 @@ aside{
     width: 80%;
     margin: 5vh auto;
 }
+
 nav
 {
     margin: auto;
@@ -52,19 +53,53 @@ header > a:last-child{
 }
 header, footer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: flex-start;
     flex-wrap: wrap;
 }
 
-aside, #main-container{
+footer {
+    font-size: 16px;
+    height: 5rem;
+}
+
+footer > a {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+}
+
+.btn-primary {
+    background: #4654A3;
+    border: none;
+}
+
+.btn-dark {
+    background: #270949;
+}
+
+#main-container {
     min-height: 100vh;
-    display:flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+aside, #main-container-home{
+    min-height: 100vh;
+    display:flex;;
 }
 aside{
     justify-content: center;
     align-items: center;
 }
+
+main {
+    height: 100%;
+    margin-left: 1rem;
+}
+
 main > h1{
     margin-bottom: 1.5rem;
 }
@@ -79,8 +114,12 @@ aside > a {
 a:hover{
     color: #f95b3d;
     background-color: white;
-    border-radius: 50%;
 }
+
+form > div {
+    margin-top: 1rem;
+}
+
 #logo{
     max-width: 35vw;
     height: auto;

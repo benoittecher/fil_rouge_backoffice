@@ -54,9 +54,9 @@
         </c:when>
         <c:otherwise>
             <label for="roleUtilisateurAffiche">Rôle :</label>
-            <input type="text" value="${roleUtilisateur.intitule}" id="roleUtilisateurAffiche" readonly>
+            <input type="text" value="${utilisateur.role.intitule}" id="roleUtilisateurAffiche" readonly>
             <!-- test -->
-            <input type="hidden" name="roleUtilisateur" value="${roleUtilisateur.idRole}">
+            <input type="hidden" name="roleUtilisateur" value="${utilisateur.role.idRole}">
         </c:otherwise>
     </c:choose>
     </div>

@@ -7,20 +7,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+
+<jsp:include page="header.jsp">
+    <jsp:param name="errorMsg" value="${error}"/>
+    <jsp:param name="title" value="Liste des utilisateurs"/>
+</jsp:include>
 <h1 >Login</h1>
 <c:if test="${loginFail}">
     <div class="alert alert-danger" role="alert">Mauvais login</div>
 </c:if>
 
 <form method="post" action="${pageContext.request.contextPath}/login">
-    <input type="text" name="email">
-    <input type="password" name="password">
-    <input type="submit" value="Se connecter">
+    <div><input type="text" name="email" placeholder="email"></div>
+    <div><input type="password" name="password" placeholder="mot de passe"></div>
+    <div><input class="btn btn-primary" type="submit" value="Se connecter"></div>
 </form>
-</body>
-</html>
+
+<jsp:include page="footer.jsp"/>

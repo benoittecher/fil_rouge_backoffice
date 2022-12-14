@@ -22,7 +22,7 @@
     <div>THE WEATHER CALENDAR</div>
   </a>
 </aside>
-<div id="main-container" class="bcg-blue txt-white">
+<div id="main-container-home" class="bcg-blue txt-white">
   <header class="margin-centered">
     <nav>
       <label for="toggle">☰</label>
@@ -36,7 +36,7 @@
     </nav>
 
   </header>
-  <main class="margin-centered">
+  <main class="margin-centered bcg-blue txt-white">
     <h1>Bienvenue</h1>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
       Dignissimos, quibusdam adipisci corrupti cumque doloremque eos?
