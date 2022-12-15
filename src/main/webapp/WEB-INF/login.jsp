@@ -21,8 +21,12 @@
 </c:if>
 
 <form method="post" action="${pageContext.request.contextPath}/login">
-    <div><input type="text" name="email" placeholder="email"></div>
-    <div><input type="password" name="password" placeholder="mot de passe"></div>
+    <div>
+        <input type="text" name="email" placeholder="email">
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="mot de passe">
+    </div>
     <div><input class="btn btn-primary" type="submit" value="Se connecter"></div>
 </form>
 

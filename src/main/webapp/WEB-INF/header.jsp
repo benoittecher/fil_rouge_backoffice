@@ -16,15 +16,16 @@
 <header>
     <nav>
         <div id="menu">
+
             <c:choose>
                 <c:when test="${not empty sessionScope.utilisateur}">
                     <form method="post" action="${pageContext.request.contextPath}/logout">
-                        <input type="submit" class="btn btn-dark" value="Déconnexion">
+                        <input type="submit" class="btn btn-dark-blue hover-white" value="Déconnexion">
                     </form>
                 </c:when>
 
                 <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/login" class="btn btn-dark">Connexion</a>
+                    <a href="${pageContext.request.contextPath}/login" class="btn btn-dark-blue hover-white">Connexion</a>
                 </c:otherwise>
 
             </c:choose>

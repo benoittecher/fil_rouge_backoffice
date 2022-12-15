@@ -36,8 +36,6 @@ nav
 {
     margin: auto;
     width: 100%;
-    height: 100px;
-    background: #4654A3;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -48,24 +46,31 @@ header > a, footer > a {
     color: #e6e9f5;
     text-decoration: none;
 }
-header > a{
+header > * {
     align-self: start;
-    /*margin-right: 1rem;*/
+    margin-right: 1rem;
     padding:1rem;
 }
 header > a:last-child{
     margin-right: 0;
 }
-header, footer{
+header {
+    background: #4654A3;
+    height: 10%;
     display: flex;
     justify-content: space-around;
-    align-content: flex-start;
+    align-content: center;
     flex-wrap: wrap;
 }
 
 footer {
     font-size: 16px;
     height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: flex-start;
+    flex-wrap: wrap;
 }
 
 footer > a {
@@ -79,8 +84,29 @@ footer > a {
     border: none;
 }
 
-.btn-dark {
+.btn-primary:hover {
     background: #270949;
+}
+
+
+.hover-white:hover {
+    background: #e6e9f5;
+    color: #270949;
+}
+
+.btn-dark-blue {
+    color: #e6e9f5;
+    background: #270949;
+}
+
+.btn-danger {
+    background: #f95b3d;
+    border: none;
+}
+
+.btn-backTo {
+    background: #e6e9f5;
+    margin: 1rem;
 }
 
 #main-container {
@@ -129,54 +155,17 @@ form > div {
     max-width: 35vw;
     height: auto;
 }
-label, #toggle
-{
-    display: none;
-}
+
 main{
     background-color: white;
     color: black;
 }
 #menu{
-    margin-top:1rem;
-    margin-right: 30px;
+    align-content: end;
+    display: flex;
+    flex-direction: row;
 }
 
-@media all and (max-width: 1300px)
-{
-    nav
-    {
-        height: 60px;
-    }
-
-    nav .main_pages
-    {
-        display: none;
-        flex-direction: column;
-
-        height: 220px;
-    }
-
-    nav .main_pages a {
-        width: 50%;
-    }
-
-    label
-    {
-        width: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        font-size: 40px;
-        color: white;
-        cursor: pointer;
-    }
-
-    #toggle:checked + .main_pages {
-        display: flex;
-    }
-}
 
 
 
