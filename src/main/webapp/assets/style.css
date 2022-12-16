@@ -19,7 +19,7 @@ aside{
 }
 
 .alert {
-    width: 50rem;
+    display: inline-block;
 }
 
 #main-container-home{
