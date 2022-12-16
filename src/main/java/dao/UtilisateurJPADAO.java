@@ -45,25 +45,29 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
 
     @Override
     public boolean update(Utilisateur element) {
+        boolean isAvailableEmail = isAvailableEmail(element.getMail());
         EntityManager em = ConnectionManager.getEntityManager();
-        EntityTransaction trans = em.getTransaction();
         Long id = element.getIdUtilisateur();
         Optional<Utilisateur> utilisateur = findById(id);
         if(utilisateur.isPresent()){
-            trans.begin();
-            utilisateur.get().setMail(element.getMail());
-            utilisateur.get().setNom(element.getNom());
-            utilisateur.get().setPrenom(element.getPrenom());
-            utilisateur.get().setPays(element.getPays());
-            utilisateur.get().setPhoto(element.getPhoto());
-            utilisateur.get().setRole(element.getRole());
-            utilisateur.get().setVille(element.getVille());
-            utilisateur.get().setMotDePasse(element.getMotDePasse());
-            utilisateur.get().setStatutCompte(element.getStatutCompte());
-            utilisateur.get().setPlanning(element.getPlanning());
-            trans.commit();
-            em.close();
-            return true;
+            if(element.getMail().equals(utilisateur.get().getMail()) || isAvailableEmail){
+                em = ConnectionManager.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                trans.begin();
+                utilisateur.get().setMail(element.getMail());
+                utilisateur.get().setNom(element.getNom());
+                utilisateur.get().setPrenom(element.getPrenom());
+                utilisateur.get().setPays(element.getPays());
+                utilisateur.get().setPhoto(element.getPhoto());
+                utilisateur.get().setRole(element.getRole());
+                utilisateur.get().setVille(element.getVille());
+                utilisateur.get().setStatutCompte(element.getStatutCompte());
+                utilisateur.get().setPlanning(element.getPlanning());
+                trans.commit();
+                em.close();
+                return true;
+            }
+            return false;
         }
         em.close();
         return false;
@@ -88,5 +92,30 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
         List<Utilisateur> utilisateur = query.setMaxResults(1).getResultList();
         em.close();
         return utilisateur != null && utilisateur.size() > 0 ? Optional.of(utilisateur.get(0)) : Optional.empty();
+    }
+
+    public boolean isEmailFormat(String email){
+        if(email == null) return false;
+        String[] split = email.split("@");
+        if(split.length != 2 || split[0].length() == 0 || split[1].length() == 0) return false;
+        String lastPart = split[1];
+        String[] lastPartSplit = lastPart.split("\\.");
+        return lastPartSplit.length == 2;
+    }
+    public boolean isAvailableEmail(String email){
+        if(!isEmailFormat(email)) return false;
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u where u.mail=:email", Utilisateur.class);
+        query.setParameter("email", email);
+        List<Utilisateur> utilisateur = query.setMaxResults(1).getResultList();
+        em.close();
+        return utilisateur == null || utilisateur.size() == 0;
+    }
+    @Override
+    public Utilisateur create(Utilisateur utilisateur){
+        if(isAvailableEmail(utilisateur.getMail())){
+            return create(utilisateur);
+        }
+        return null;
     }
 }

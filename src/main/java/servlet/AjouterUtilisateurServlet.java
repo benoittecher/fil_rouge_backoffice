@@ -42,9 +42,22 @@ public class AjouterUtilisateurServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String mail = req.getParameter("mailUtilisateur");
+        UtilisateurJPADAO utilisateurDAO = new UtilisateurJPADAO();
+
+        if(!utilisateurDAO.isEmailFormat(mail)){
+            req.setAttribute("badMailFormat", true);
+            doGet(req,resp);
+        }
+
+        if(!utilisateurDAO.isAvailableEmail(mail)){
+            req.setAttribute("alreadyUsedMail", true);
+            doGet(req, resp);
+        }
+
         String nom = req.getParameter("nomUtilisateur");
         String prenom = req.getParameter("prenomUtilisateur");
-        String mail = req.getParameter("mailUtilisateur");
+
         String mdp = req.getParameter("mdpUtilisateur");
         String ville = req.getParameter("villeUtilisateur");
         String pays = req.getParameter("paysUtilisateur");
@@ -53,7 +66,7 @@ public class AjouterUtilisateurServlet extends HttpServlet {
 
         RoleJPADAO roleDAO = new RoleJPADAO();
         StatutCompteJPADAO statutDAO = new StatutCompteJPADAO();
-        UtilisateurJPADAO utilisateurDAO = new UtilisateurJPADAO();
+
 
         Role role = roleDAO.findById(idRole).get();
         StatutCompte statut = statutDAO.findById(idStatut).get();
@@ -63,5 +76,8 @@ public class AjouterUtilisateurServlet extends HttpServlet {
         utilisateurDAO.create(utilisateur);
 
         resp.sendRedirect(req.getContextPath() + "/utilisateurs");
+
+
+
     }
 }

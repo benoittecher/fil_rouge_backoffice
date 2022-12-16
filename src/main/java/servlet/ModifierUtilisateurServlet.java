@@ -59,9 +59,20 @@ public class ModifierUtilisateurServlet extends HttpServlet {
 
 
         if(utilisateurOptional.isPresent()) {
+            String mail = req.getParameter("mailUtilisateur");
+            if(!utilisateurDAO.isEmailFormat(mail)){
+                req.setAttribute("badMailFormat", true);
+                doGet(req, resp);
+            }
+            boolean cond1 = !mail.equals(utilisateurOptional.get().getMail());
+            boolean cond2 = !utilisateurDAO.isAvailableEmail(mail);
+            if(cond1 && cond2){
+                req.setAttribute("alreadyUsedMail", true);
+                doGet(req, resp);
+            }
             String nom = req.getParameter("nomUtilisateur");
             String prenom = req.getParameter("prenomUtilisateur");
-            String mail = req.getParameter("mailUtilisateur");
+
             String mdp = utilisateurOptional.get().getMotDePasse();
             String ville = req.getParameter("villeUtilisateur");
             String pays = req.getParameter("paysUtilisateur");

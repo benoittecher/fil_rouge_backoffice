@@ -13,6 +13,12 @@
                 <div class="card rounded-3">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Modifier les informations de l'utilisateur</h3>
+                        <c:if test="${badMailFormat}">
+                            <div class="alert alert-danger" role="alert">L'email saisie est incorrecte</div>
+                        </c:if>
+                        <c:if test="${alreadyUsedMail}">
+                            <div class="alert alert-danger" role="alert">L'email saisie est déjà utilisée</div>
+                        </c:if>
 
                         <form method="post" action="/utilisateurs/modifier" class="px-md-2">
                             <input type="hidden" value="${utilisateur.idUtilisateur}" name="id">
