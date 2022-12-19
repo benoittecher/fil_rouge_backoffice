@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import model.Role;
 import model.StatutCompte;
 import model.Utilisateur;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.Optional;
@@ -86,12 +87,11 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
 
     public Optional<Utilisateur> getByMailAndPwd(String mail, String pwd){
         EntityManager em = ConnectionManager.getEntityManager();
-        TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u where u.mail = :mail and u.motDePasse = :pwd ", Utilisateur.class);
+        TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u where u.mail = :mail", Utilisateur.class);
         query.setParameter("mail", mail);
-        query.setParameter("pwd", pwd);
         List<Utilisateur> utilisateur = query.setMaxResults(1).getResultList();
         em.close();
-        return utilisateur != null && utilisateur.size() > 0 ? Optional.of(utilisateur.get(0)) : Optional.empty();
+        return utilisateur != null && utilisateur.size() > 0 && BCrypt.checkpw(pwd, utilisateur.get(0).getMotDePasse()) ? Optional.of(utilisateur.get(0)) : Optional.empty();
     }
 
     public boolean isEmailFormat(String email){

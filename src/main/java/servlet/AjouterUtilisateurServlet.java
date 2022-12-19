@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import model.Role;
 import model.StatutCompte;
 import model.Utilisateur;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class AjouterUtilisateurServlet extends HttpServlet {
         String prenom = req.getParameter("prenomUtilisateur");
 
         String mdp = req.getParameter("mdpUtilisateur");
+        String hashedMdp = BCrypt.hashpw(mdp, BCrypt.gensalt(12));
         String ville = req.getParameter("villeUtilisateur");
         String pays = req.getParameter("paysUtilisateur");
         Long idRole = Long.parseLong(req.getParameter("roleUtilisateur"));
@@ -71,7 +73,7 @@ public class AjouterUtilisateurServlet extends HttpServlet {
         Role role = roleDAO.findById(idRole).get();
         StatutCompte statut = statutDAO.findById(idStatut).get();
 
-        Utilisateur utilisateur = new Utilisateur(nom, prenom, mail, mdp, ville, pays, role, statut);
+        Utilisateur utilisateur = new Utilisateur(nom, prenom, mail, hashedMdp, ville, pays, role, statut);
 
         utilisateurDAO.create(utilisateur);
 
