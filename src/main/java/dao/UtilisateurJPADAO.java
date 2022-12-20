@@ -113,9 +113,45 @@ public class UtilisateurJPADAO implements CrudDAO<Utilisateur>{
     }
     @Override
     public Utilisateur create(Utilisateur utilisateur){
-        if(isAvailableEmail(utilisateur.getMail())){
-            return create(utilisateur);
+        boolean isOkMail = isAvailableEmail(utilisateur.getMail());
+        if(isOkMail){
+            EntityManager em = ConnectionManager.getEntityManager();
+            EntityTransaction et = em.getTransaction();
+            try {
+                et.begin();
+                em.persist(utilisateur);
+                et.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                if(et.isActive()) {
+                    et.rollback();
+                }
+            } finally {
+                em.close();
+            }
+            return utilisateur;
         }
         return null;
+    }
+    public List<Utilisateur> findByFilter(Utilisateur filter){
+        EntityManager em = ConnectionManager.getEntityManager();
+        TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u " +
+                "where u.nom like :nom " +
+                "and u.prenom like :prenom " +
+                "and u.mail like :mail " +
+                "and u.pays like :pays " +
+                "and u.ville like :ville " +
+                (filter.getRole() != null ? "and u.role = :role " : "") +
+                (filter.getStatutCompte()!= null ? "and u.statutCompte = :statutCompte" : ""), Utilisateur.class);
+        query.setParameter("nom", "%" + filter.getNom() + "%");
+        query.setParameter("prenom", "%" + filter.getPrenom() + "%");
+        query.setParameter("mail", "%" + filter.getMail() + "%");
+        query.setParameter("pays", "%" + filter.getPays() + "%");
+        query.setParameter("ville", "%" + filter.getVille() + "%");
+        if(filter.getRole() != null) query.setParameter("role", filter.getRole());
+        if(filter.getStatutCompte() != null) query.setParameter("statutCompte", filter.getStatutCompte());
+        List<Utilisateur> utilisateurs = query.getResultList();
+        em.close();
+        return utilisateurs;
     }
 }
